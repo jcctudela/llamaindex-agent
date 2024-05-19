@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  bot:
+    build:
+      context: ./bot/
+      dockerfile: ./docker/Dockerfile
+    command: python main.py
+    volumes:
+      - ./bot/src:/app
+      - ./bot/input_files:/app/input_files
+      - storage_data:/app/storage
+    env_file:
+      - ./bot/env/local/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: llamaindex
+      POSTGRES_USER: llama_user
+      POSTGRES_PASSWORD: llama_password
+
+volumes:
+  postgres_data:
+  storage_data:

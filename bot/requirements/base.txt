@@ -1,0 +1,4 @@
+llama-index==0.10.37
+llama-index-agent-openai==0.2.5
+llama-index-llms-openai==0.1.19
+Flask==3.0.3
